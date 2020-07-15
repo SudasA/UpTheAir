@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.upintheair.R
 import com.example.upintheair.entity.UserRequest
 import com.example.upintheair.loginFilter
+import com.example.upintheair.md5
 import kotlinx.android.synthetic.main.activity_signin.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,12 +22,6 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
 
-//        viewModel = ViewModelProvider(
-//            this,
-//            SignInViewModelFactory(RetrofitRepository)
-//        ).get(SignInViewModel::class.java)
-
-//        login.addTextChangedListener(filterForLogin)
         login.filters += loginFilter()
 
         buttonSingIn.setOnClickListener(clickOnButtonSignIn)
@@ -34,16 +29,23 @@ class SignInActivity : AppCompatActivity() {
 
     val clickOnButtonSignIn = object : View.OnClickListener {
         override fun onClick(v: View?) {
-            CoroutineScope(Dispatchers.Main).launch {
 
-                if (checkPassword(password.text.toString(), repeatPassword.text.toString()))
-                    mViewModel.postUser(
-                        UserRequest(
-                            login.text.toString(),
-                            username.text.toString(),
-                            password.text.toString()
+            if (login.text.toString() != "" && username.text.toString() != "" && password.text.toString() != "" && repeatPassword.text.toString() != "") {
+                if (checkPassword(password.text.toString(), repeatPassword.text.toString())) {
+//                    CoroutineScope(Dispatchers.Main).launch {
+                        mViewModel.postUser(
+                            UserRequest(
+                                login.text.toString(),
+                                username.text.toString(),
+                                password.text.toString().md5()
+                            )
                         )
-                    )
+//                    }
+                } else {
+                    errorText.text = "Вы неправильно повторили пароль"
+                }
+            } else {
+                errorText.text = "Все поля должны быть заполнены"
             }
         }
     }

@@ -8,7 +8,7 @@ fun loginFilter(): InputFilter {
             if (dest.toString() == "" && source != "@")
                 return@InputFilter "@$source"
             if (dest.toString() != "" && dest[0] != '@')
-                return@InputFilter "@$source"
+                    return@InputFilter "@$source"
             if (dstart == 0 && dend == 1)
                 if (dest.toString() != "@")
                     return@InputFilter "@$source"

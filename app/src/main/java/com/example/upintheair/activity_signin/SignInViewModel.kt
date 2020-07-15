@@ -10,26 +10,21 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.coroutines.CoroutineContext
 
 class SignInViewModel(
     private val repository: RetrofitRepository
-) : ViewModel() {
+) : ViewModel(), CoroutineScope {
+
+
 
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
-    fun postUser(user: UserRequest) {
-        repository.getUserService().postUser(user).enqueue(object : Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-
-            }
-
-            override fun onResponse(
-                call: Call<ResponseBody>,
-                response: Response<ResponseBody>
-            ) {
-
-            }
-        })
+    suspend fun postUser(user: UserRequest) {
+        repository.getUserService().postUser(user)
     }
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main
 
 }

@@ -11,7 +11,7 @@ import retrofit2.http.POST
 interface UserService {
 
     @POST("/users")
-    fun postUser(
+    suspend fun postUser(
         @Body request: UserRequest
-    ): Call<ResponseBody>
+    ): ResponseBody
 }

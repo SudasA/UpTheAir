@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "943678580545",
+    "firebase_url": "https://up-in-the-air-effe3.firebaseio.com",
+    "project_id": "up-in-the-air-effe3",
+    "storage_bucket": "up-in-the-air-effe3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943678580545:android:84f8dbbe58c10bc7c5a3c0",
+        "android_client_info": {
+          "package_name": "com.example.upintheair"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943678580545-17js5vtt7d4css460n4eggtr3l4lnssd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDb-ShMeTcm06k7raRk9EPci2tZ0NeYsvY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943678580545-17js5vtt7d4css460n4eggtr3l4lnssd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,11 +2,11 @@ package com.example.upintheair.fragment_wishlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.upintheair.network.RetrofitRepository
+import com.example.upintheair.FakeRepository
 
 @Suppress("UNCHECKED_CAST")
-class WishListFactory(
-    private val repository: RetrofitRepository
+class WishListViewModelFactory(
+    private val repository: FakeRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return if (modelClass == WishListViewModel::class.java)

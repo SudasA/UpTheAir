@@ -9,7 +9,6 @@ import com.example.upintheair.R
 import com.example.upintheair.activity_global.GlobalActivity
 import com.example.upintheair.loginFilter
 import kotlinx.android.synthetic.main.activity_signin.*
-import kotlinx.coroutines.GlobalScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignInActivity : AppCompatActivity() {

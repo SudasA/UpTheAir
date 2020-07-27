@@ -5,7 +5,7 @@ import com.example.upintheair.network.RetrofitRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single { RetrofitRepository }
+    single { RetrofitRepository() }
     single { FakeRepository }
 //    factory { RetrofitRepository }
 }

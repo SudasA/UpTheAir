@@ -16,6 +16,8 @@ class SignInActivity : AppCompatActivity() {
     val mViewModel: SignInViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+//        setTheme(R.style.AppTheme)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
 

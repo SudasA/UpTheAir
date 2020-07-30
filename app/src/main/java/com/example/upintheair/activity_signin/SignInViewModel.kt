@@ -30,10 +30,10 @@ class SignInViewModel(
                     postUser(user)
                 }
             } else {
-                errorLiveData.value = "Вы неправильно повторили пароль"
+                errorLiveData.value = "error_with_repeat_password"
             }
         } else {
-            errorLiveData.value = "Все поля должны быть заполнены"
+            errorLiveData.value = "error_with_all_edit_text"
         }
     }
 

@@ -38,10 +38,12 @@ class SignInActivity : AppCompatActivity() {
                 repeatPassword.text.toString()
             )
 
-            if (mViewModel.errorLiveData.value != null){
-                errorText.text = mViewModel.errorLiveData.value
-            } else {
-                openLogIn()
+            when (mViewModel.errorLiveData.value) {
+                null -> openLogIn()
+                "error_with_repeat_password" -> errorText.text =
+                    resources.getString(R.string.error_with_repeat_password)
+                "error_with_all_edit_text" -> errorText.text =
+                    resources.getString(R.string.error_with_all_edit_text)
             }
         }
     }

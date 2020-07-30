@@ -16,15 +16,13 @@ class SignInActivity : AppCompatActivity() {
     val mViewModel: SignInViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-//        setTheme(R.style.AppTheme)
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
 
-        login.filters += loginFilter()
+        edit_text_login.filters += loginFilter()
 
-        buttonSingIn.setOnClickListener(clickOnButtonSignIn)
-        textLogIn.setOnClickListener {
+        button_sing_in.setOnClickListener(clickOnButtonSignIn)
+        text_log_in.setOnClickListener {
             openLogIn()
         }
     }
@@ -32,17 +30,17 @@ class SignInActivity : AppCompatActivity() {
     private val clickOnButtonSignIn = object : View.OnClickListener {
         override fun onClick(v: View?) {
             mViewModel.sendUser(
-                login.text.toString(),
-                username.text.toString(),
-                password.text.toString(),
-                repeatPassword.text.toString()
+                edit_text_login.text.toString(),
+                edit_text_username.text.toString(),
+                edit_text_password.text.toString(),
+                edit_text_repeat_password.text.toString()
             )
 
             when (mViewModel.errorLiveData.value) {
                 null -> openLogIn()
-                "error_with_repeat_password" -> errorText.text =
+                "error_with_repeat_password" -> text_error.text =
                     resources.getString(R.string.error_with_repeat_password)
-                "error_with_all_edit_text" -> errorText.text =
+                "error_with_all_edit_text" -> text_error.text =
                     resources.getString(R.string.error_with_all_edit_text)
             }
         }

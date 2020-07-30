@@ -17,7 +17,7 @@ class StartActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
 
-        val user = true
+        val user = false
         routeToAppropriatePage(user)
         finish()
     }

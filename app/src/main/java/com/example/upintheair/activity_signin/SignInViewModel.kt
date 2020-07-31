@@ -15,7 +15,7 @@ class SignInViewModel(
 //    private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     var errorLiveData = MutableLiveData<String>()
-    var tempLiveData = MutableLiveData<String>()
+    var toastMessageLiveData = MutableLiveData<String>()
 
     fun sendUser(
         login: String,
@@ -34,16 +34,17 @@ class SignInViewModel(
             else -> {
                 CoroutineScope(coroutineContext).async {
                     val user = UserRequest(login, username, password)
-                    postUser(user)
-                    errorLiveData.value = null
+                    createNewUser(user)
                 }
 
             }
         }
     }
 
-    suspend fun postUser(user: UserRequest) {
-        repository.getUserService().postUser(user).string()
+    suspend fun createNewUser(user: UserRequest){
+            repository.getUserService().postUser(user).string()
+            errorLiveData.value = null
+            toastMessageLiveData.value = "Create user success"
     }
 
     override val coroutineContext: CoroutineContext

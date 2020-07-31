@@ -36,6 +36,10 @@ class SignInActivity : AppCompatActivity() {
                 edit_text_repeat_password.text.toString()
             )
 
+            if(mViewModel.toastMessageLiveData.value != null) {
+                toastMessage(mViewModel.toastMessageLiveData.value!!)
+            }
+
             when (mViewModel.errorLiveData.value) {
                 null -> openLogIn()
                 "error_with_size_of_password" -> text_error.text =

@@ -28,6 +28,7 @@ class SignInViewModel(
                 CoroutineScope(coroutineContext).async {
                     val user = UserRequest(login, username, password)
                     postUser(user)
+                    errorLiveData.value = null
                 }
             } else {
                 errorLiveData.value = "error_with_repeat_password"

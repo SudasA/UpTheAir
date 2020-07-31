@@ -1,79 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="64dp"
-    android:layout_marginEnd="64dp">
+    android:layout_marginStart="64sp"
+    android:layout_marginEnd="64sp">
 
     <TextView
-        android:id="@+id/text_sign_in"
+        android:id="@+id/text_enter_wish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16sp"
-        android:text="@string/text_sign_in"
+        android:layout_marginTop="12sp"
+        android:gravity="center"
+        android:text="@string/text_enter_wish"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_error" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edit_text_login"
+        android:id="@+id/edit_text_name_wish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16sp"
-        android:hint="@string/edit_text_login"
+        android:hint="@string/edit_text_name_wish"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/text_sign_in" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_enter_wish" />
 
     <EditText
-        android:id="@+id/edit_text_username"
+        android:id="@+id/edit_text_description_wish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="@string/edit_text_username"
+        android:hint="@string/edit_text_description_wish"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_login" />
-
-    <EditText
-        android:id="@+id/edit_text_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16sp"
-        android:hint="@string/edit_text_password"
-        android:inputType="textPassword"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_username" />
-
-    <EditText
-        android:id="@+id/edit_text_repeat_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16sp"
-        android:hint="@string/edit_text_repeat_password"
-        android:inputType="textPassword"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_password" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_name_wish" />
 
     <Button
-        android:id="@+id/button_sing_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/button_sing_in"
+        android:id="@+id/button_add_wish"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:layout_marginTop="16sp"
+        android:text="@string/button_add_wish"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_repeat_password" />
-
-    <TextView
-        android:id="@+id/text_log_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/text_log_in"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_sing_in" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_description_wish" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

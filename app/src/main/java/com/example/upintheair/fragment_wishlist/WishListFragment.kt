@@ -31,8 +31,8 @@ class WishListFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_wishlist, container, false)
 
         wishListAdapter = WishListAdapter(OnItemClick)
-        rootView.recyclerview_wishlist.layoutManager = LinearLayoutManager(activity)
-        rootView.recyclerview_wishlist.adapter = wishListAdapter
+        rootView.recyclerview_wish_list.layoutManager = LinearLayoutManager(activity)
+        rootView.recyclerview_wish_list.adapter = wishListAdapter
 
         return rootView
     }

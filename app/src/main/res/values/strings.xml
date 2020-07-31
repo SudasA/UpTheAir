@@ -1,15 +1,18 @@
 <resources>
     <string name="app_name">Up In The Air</string>
-    <string name="error_with_repeat_password">Вы неправильно повторили пароль</string>
-    <string name="error_with_all_edit_text">Все поля должны быть заполнены</string>
+    <string name="error_with_repeat_password">Неправильно повторили пароль</string>
+    <string name="error_with_all_edit_text">Поля должны быть заполнены</string>
     <string name="button_add_wish">+</string>
     <string name="edit_text_password">ПаР0лЬ</string>
-    <string name="text_sign_in">Введите данные</string>
+    <string name="text_sign_in">Введи данные</string>
     <string name="edit_text_login">\@login</string>
     <string name="edit_text_username">Имя</string>
-    <string name="edit_text_repeat_password">Повторите ПаР0лЬ</string>
+    <string name="edit_text_repeat_password">Повтори ПаР0лЬ</string>
     <string name="button_sing_in">Зарегистрироваться</string>
     <string name="text_log_in">Войти</string>
-    <string name="name_wish">name_wish</string>
-    <string name="description_wish">description_wish</string>
+    <string name="name_wish">Название желания</string>
+    <string name="description_wish">Описание желания</string>
+    <string name="text_enter_wish">Добавь свое желан</string>
+    <string name="edit_text_name_wish">Введи название</string>
+    <string name="edit_text_description_wish">Опиши его или нет</string>
 </resources>

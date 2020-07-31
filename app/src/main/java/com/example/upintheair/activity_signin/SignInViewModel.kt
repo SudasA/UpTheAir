@@ -23,18 +23,22 @@ class SignInViewModel(
         password: String,
         repeatPassword: String
     ) {
-        if (login != "" && username != "" && password != "" && repeatPassword != "") {
-            if (checkPassword(password, repeatPassword)) {
+
+        when {
+            login == "" || username == "" || password == "" || repeatPassword == "" ->
+                errorLiveData.value = "error_with_all_edit_text"
+            password.length < 8 ->
+                errorLiveData.value = "error_with_size_of_password"
+            checkPassword(password, repeatPassword) == false ->
+                errorLiveData.value = "error_with_repeat_password"
+            else -> {
                 CoroutineScope(coroutineContext).async {
                     val user = UserRequest(login, username, password)
                     postUser(user)
                     errorLiveData.value = null
                 }
-            } else {
-                errorLiveData.value = "error_with_repeat_password"
+
             }
-        } else {
-            errorLiveData.value = "error_with_all_edit_text"
         }
     }
 

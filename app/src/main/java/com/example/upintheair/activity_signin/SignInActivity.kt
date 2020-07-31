@@ -38,6 +38,8 @@ class SignInActivity : AppCompatActivity() {
 
             when (mViewModel.errorLiveData.value) {
                 null -> openLogIn()
+                "error_with_size_of_password" -> text_error.text =
+                    resources.getText(R.string.error_with_size_of_password)
                 "error_with_repeat_password" -> text_error.text =
                     resources.getString(R.string.error_with_repeat_password)
                 "error_with_all_edit_text" -> text_error.text =

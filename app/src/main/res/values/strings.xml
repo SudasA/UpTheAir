@@ -15,4 +15,5 @@
     <string name="text_enter_wish">Добавь свое желан</string>
     <string name="edit_text_name_wish">Введи название</string>
     <string name="edit_text_description_wish">Опиши его или нет</string>
+    <string name="symbols_for_edit_text_login">abcdefghijklmnopqrstuvwxyz1234567890@</string>
 </resources>

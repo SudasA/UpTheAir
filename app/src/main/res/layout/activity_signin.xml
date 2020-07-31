@@ -36,7 +36,8 @@
         android:layout_marginTop="16sp"
         android:hint="@string/edit_text_login"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/text_sign_in" />
+        app:layout_constraintTop_toBottomOf="@+id/text_sign_in"
+        android:digits="@string/symbols_for_edit_text_login"/>
 
     <EditText
         android:id="@+id/edit_text_username"

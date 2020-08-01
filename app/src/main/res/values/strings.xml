@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Up In The Air</string>
+    <string name="error_with_repeat_password">Неправильно повторили пароль</string>
+    <string name="error_with_all_edit_text">Все поля должны быть заполнены</string>
+    <string name="error_with_size_of_password">Пароль должен быть не меньше 8 символов</string>
+    <string name="button_add_wish">+</string>
+    <string name="edit_text_password">ПаР0лЬ</string>
+    <string name="text_sign_in">Введи данные</string>
+    <string name="edit_text_login">\@login</string>
+    <string name="edit_text_username">Имя</string>
+    <string name="edit_text_repeat_password">Повтори ПаР0лЬ</string>
+    <string name="button_sing_in">Зарегистрироваться</string>
+    <string name="text_log_in">Войти</string>
+    <string name="name_wish">Название желания</string>
+    <string name="description_wish">Описание желания</string>
+    <string name="text_enter_wish">Добавь свое желан</string>
+    <string name="edit_text_name_wish">Введи название</string>
+    <string name="edit_text_description_wish">Опиши его или нет</string>
+    <string name="symbols_for_edit_text_login">abcdefghijklmnopqrstuvwxyz1234567890@</string>
 </resources>

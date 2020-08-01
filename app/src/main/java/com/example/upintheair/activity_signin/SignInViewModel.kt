@@ -7,6 +7,7 @@ import com.example.upintheair.network.RetrofitRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import okhttp3.internal.wait
 import kotlin.coroutines.CoroutineContext
 
 class SignInViewModel(
@@ -29,20 +30,30 @@ class SignInViewModel(
                 errorLiveData.value = "error_with_all_edit_text"
             password.length < 8 ->
                 errorLiveData.value = "error_with_size_of_password"
-            checkPassword(password, repeatPassword) == false ->
+            !checkPassword(password, repeatPassword) ->
                 errorLiveData.value = "error_with_repeat_password"
             else -> {
                 CoroutineScope(coroutineContext).async {
                     val user = UserRequest(login, username, password)
-                    createNewUser(user)
+                    createNewUser(user).wait()
                 }
-
             }
         }
     }
 
     suspend fun createNewUser(user: UserRequest){
-            repository.getUserService().postUser(user).string()
+//            val temp = repository.getUserService().postUser(user).string()
+
+        val database = Firebase
+
+        firestore.collection("users")
+            .add(
+                hashMapOf(
+                    "comment" to comment
+                )
+            )
+
+
             errorLiveData.value = null
             toastMessageLiveData.value = "Create user success"
     }

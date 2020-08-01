@@ -14,6 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SignInActivity : AppCompatActivity() {
 
     val mViewModel: SignInViewModel by viewModel()
+//    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +42,8 @@ class SignInActivity : AppCompatActivity() {
             }
 
             when (mViewModel.errorLiveData.value) {
-                null -> openLogIn()
+                null ->
+                    openLogIn()
                 "error_with_size_of_password" -> text_error.text =
                     resources.getText(R.string.error_with_size_of_password)
                 "error_with_repeat_password" -> text_error.text =

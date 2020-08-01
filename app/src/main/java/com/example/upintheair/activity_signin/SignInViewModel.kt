@@ -44,7 +44,7 @@ class SignInViewModel(
     suspend fun createNewUser(user: UserRequest){
 //            val temp = repository.getUserService().postUser(user).string()
 
-        val database = Firebase
+//        val database = Firebase
 
         firestore.collection("users")
             .add(

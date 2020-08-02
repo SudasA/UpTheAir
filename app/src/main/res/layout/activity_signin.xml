@@ -34,10 +34,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16sp"
+        android:digits="@string/symbols_for_edit_text_login"
         android:hint="@string/edit_text_login"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/text_sign_in"
-        android:digits="@string/symbols_for_edit_text_login"/>
+        app:layout_constraintTop_toBottomOf="@+id/text_sign_in" />
 
     <EditText
         android:id="@+id/edit_text_username"
@@ -78,6 +78,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_repeat_password" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@android:style/Widget.ProgressBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_sing_in" />
+
     <TextView
         android:id="@+id/text_log_in"
         android:layout_width="wrap_content"
@@ -86,7 +96,7 @@
         android:text="@string/text_log_in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_sing_in" />
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

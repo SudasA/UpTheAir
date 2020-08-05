@@ -10,7 +10,7 @@ import retrofit2.http.POST
 
 interface UserService {
 
-    @POST("/api/create_user")
+    @POST("/app/api/create_user")
     suspend fun postUser(
         @Body request: UserRequest
     ): ResponseBody

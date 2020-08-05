@@ -16,13 +16,6 @@ class GlobalActivity : AppCompatActivity() {
 
         openWishListFragment()
 
-        button_add_wish.setOnClickListener(clickButtonAddWish)
-    }
-
-    val clickButtonAddWish = object : View.OnClickListener{
-        override fun onClick(v: View?) {
-            openAddWishFragment()
-        }
     }
 
     fun openWishListFragment() {
@@ -35,16 +28,4 @@ class GlobalActivity : AppCompatActivity() {
             .addToBackStack("wish_list")
             .commit()
     }
-
-    fun openAddWishFragment() {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(
-                R.id.fragment_container,
-                AddWishFragment()
-            )
-            .addToBackStack("add_wish")
-            .commit()
-    }
-
 }

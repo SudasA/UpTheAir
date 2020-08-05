@@ -22,11 +22,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", "\"https://us-central1-up-in-the-air-effe3.cloudfunctions.net/app\"")
+            buildConfigField("String", "BASE_URL", "\"https://us-central1-up-in-the-air-effe3.cloudfunctions.net\"")
         }
 
         debug {
-            buildConfigField("String", "BASE_URL", "\"https://us-central1-up-in-the-air-effe3.cloudfunctions.net/app\"")
+            buildConfigField("String", "BASE_URL", "\"https://us-central1-up-in-the-air-effe3.cloudfunctions.net\"")
         }
     }
 

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.upintheair.R
+import kotlinx.android.synthetic.main.fragment_addwish.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddWishFragment : Fragment() {
@@ -22,5 +23,17 @@ class AddWishFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        button_add_wish.setOnClickListener(clickOnButtonAddWish)
+
+    }
+
+    val clickOnButtonAddWish = object : View.OnClickListener{
+        override fun onClick(v: View?) {
+
+
+
+        }
+
     }
 }

@@ -3,11 +3,11 @@ package com.example.upintheair.activity_signin
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.upintheair.entity.UserRequest
+import com.example.upintheair.md5
 import com.example.upintheair.network.RetrofitRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import okhttp3.internal.wait
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
 class SignInViewModel(
@@ -18,7 +18,7 @@ class SignInViewModel(
     var errorLiveData = MutableLiveData<String>()
     var toastMessageLiveData = MutableLiveData<String>()
 
-    fun sendUser(
+    suspend fun sendUser(
         login: String,
         username: String,
         password: String,
@@ -33,29 +33,22 @@ class SignInViewModel(
             !checkPassword(password, repeatPassword) ->
                 errorLiveData.value = "error_with_repeat_password"
             else -> {
-                CoroutineScope(coroutineContext).async {
-                    val user = UserRequest(login, username, password)
-                    createNewUser(user).wait()
+                withContext(CoroutineScope(coroutineContext).coroutineContext) {
+                    val user = UserRequest(login, username, password.md5())
+                    createNewUser(user)
                 }
             }
         }
     }
 
     suspend fun createNewUser(user: UserRequest){
-//            val temp = repository.getUserService().postUser(user).string()
-
-//        val database = Firebase
-
-        firestore.collection("users")
-            .add(
-                hashMapOf(
-                    "comment" to comment
-                )
-            )
-
-
-            errorLiveData.value = null
-            toastMessageLiveData.value = "Create user success"
+            try {
+                repository.getUserService().postUser(user)
+                errorLiveData.postValue(null)
+                toastMessageLiveData.postValue("Create user success")
+            } catch (e: Exception) {
+                errorLiveData.postValue(e.message)
+            }
     }
 
     override val coroutineContext: CoroutineContext

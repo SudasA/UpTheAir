@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="6sp"
     android:orientation="horizontal"
-    android:padding="16sp">
+    android:padding="16sp"
+    android:background="@color/colorAccent">
 
     <TextView
         android:id="@+id/name_wish"

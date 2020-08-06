@@ -20,7 +20,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SignInActivity : AppCompatActivity() {
 
     val mViewModel: SignInViewModel by viewModel()
-//    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,45 +39,55 @@ class SignInActivity : AppCompatActivity() {
         override fun onClick(v: View?) {
 
             CoroutineScope(Dispatchers.Main).launch {
-                window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                window.setFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                )
 
                 button_sing_in.visibility = View.INVISIBLE
                 progress_bar.visibility = View.VISIBLE
 
-                delay(5000)
+//                delay(1000)
 
-                //проверка веденных данных и содание нового пользователя
-                mViewModel.sendUser(
-                    edit_text_login.text.toString(),
-                    edit_text_username.text.toString(),
-                    edit_text_password.text.toString(),
-                    edit_text_repeat_password.text.toString()
-                )
-
-                //вывод ошибка или переход на другую активити
-                when (mViewModel.errorLiveData.value) {
-                    null -> {
-                        progress_bar.visibility = View.GONE
-                        openLogIn()
-                    }
-                    "error_with_size_of_password" -> text_error.text =
-                        resources.getText(R.string.error_with_size_of_password)
-                    "error_with_repeat_password" -> text_error.text =
-                        resources.getString(R.string.error_with_repeat_password)
-                    "error_with_all_edit_text" -> text_error.text =
-                        resources.getString(R.string.error_with_all_edit_text)
-                    else ->
-                        toastMessage(mViewModel.errorLiveData.value!!)
-                }
+                toDo()
 
                 progress_bar.visibility = View.GONE
                 button_sing_in.visibility = View.VISIBLE
 
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             }
+        }
+    }
 
+    suspend fun toDo(){
+        //create post request
+        mViewModel.sendUser(
+            edit_text_login.text.toString(),
+            edit_text_username.text.toString(),
+            edit_text_password.text.toString(),
+            edit_text_repeat_password.text.toString()
+        )
 
+        //output result
+        if (mViewModel.errorLiveData.value != null) {
+            when (mViewModel.errorLiveData.value) {
+                "successes" -> {
+                    openLogIn()
+                }
+                "error_with_size_of_password" -> text_error.text =
+                    resources.getText(R.string.error_with_size_of_password)
+                "error_with_repeat_password" -> text_error.text =
+                    resources.getString(R.string.error_with_repeat_password)
+                "error_with_all_edit_text" -> text_error.text =
+                    resources.getString(R.string.error_with_all_edit_text)
+                else ->
+                    Toast.makeText(
+                        this@SignInActivity,
+                        mViewModel.errorLiveData.value!!,
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+            }
         }
     }
 

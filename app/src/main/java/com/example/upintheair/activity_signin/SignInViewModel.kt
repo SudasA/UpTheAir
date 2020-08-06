@@ -43,9 +43,9 @@ class SignInViewModel(
     suspend fun createNewUser(user: UserRequest){
             try {
                 repository.getUserService().postUser(user)
-                errorLiveData.postValue(null)
+                errorLiveData.value = "successes"
             } catch (e: Exception) {
-                errorLiveData.postValue(e.message)
+                errorLiveData.value = e.message
             }
     }
 

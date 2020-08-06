@@ -3,6 +3,7 @@ package com.example.upintheair.activity_signin
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import com.example.upintheair.loginFilter
 import kotlinx.android.synthetic.main.activity_signin.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -26,7 +28,7 @@ class SignInActivity : AppCompatActivity() {
 
         edit_text_login.filters += loginFilter()
 
-        progress_bar.visibility = ProgressBar.INVISIBLE
+        progress_bar.visibility = ProgressBar.GONE
 
         button_sing_in.setOnClickListener(clickOnButtonSignIn)
         text_log_in.setOnClickListener {
@@ -36,8 +38,15 @@ class SignInActivity : AppCompatActivity() {
 
     private val clickOnButtonSignIn = object : View.OnClickListener {
         override fun onClick(v: View?) {
+
             CoroutineScope(Dispatchers.Main).launch {
+                window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+
+                button_sing_in.visibility = View.INVISIBLE
                 progress_bar.visibility = View.VISIBLE
+
+                delay(5000)
 
                 //проверка веденных данных и содание нового пользователя
                 mViewModel.sendUser(
@@ -47,14 +56,10 @@ class SignInActivity : AppCompatActivity() {
                     edit_text_repeat_password.text.toString()
                 )
 
-                if (mViewModel.toastMessageLiveData.value != null) {
-                    toastMessage(mViewModel.toastMessageLiveData.value!!)
-                }
-
                 //вывод ошибка или переход на другую активити
                 when (mViewModel.errorLiveData.value) {
                     null -> {
-                        progress_bar.visibility = View.INVISIBLE
+                        progress_bar.visibility = View.GONE
                         openLogIn()
                     }
                     "error_with_size_of_password" -> text_error.text =
@@ -63,11 +68,14 @@ class SignInActivity : AppCompatActivity() {
                         resources.getString(R.string.error_with_repeat_password)
                     "error_with_all_edit_text" -> text_error.text =
                         resources.getString(R.string.error_with_all_edit_text)
-                    else -> text_error.text =
-                        mViewModel.errorLiveData.value
+                    else ->
+                        toastMessage(mViewModel.errorLiveData.value!!)
                 }
 
-                progress_bar.visibility = View.INVISIBLE
+                progress_bar.visibility = View.GONE
+                button_sing_in.visibility = View.VISIBLE
+
+                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             }
 
 

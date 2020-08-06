@@ -68,6 +68,16 @@
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_password" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@android:style/Widget.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_repeat_password" />
+
     <Button
         android:id="@+id/button_sing_in"
         android:layout_width="wrap_content"
@@ -78,16 +88,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_repeat_password" />
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="@android:style/Widget.ProgressBar.Large.Inverse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_sing_in" />
-
     <TextView
         android:id="@+id/text_log_in"
         android:layout_width="wrap_content"
@@ -96,7 +96,7 @@
         android:text="@string/text_log_in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
+        app:layout_constraintTop_toBottomOf="@+id/button_sing_in" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

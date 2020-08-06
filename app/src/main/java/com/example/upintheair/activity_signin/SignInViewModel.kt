@@ -16,7 +16,6 @@ class SignInViewModel(
 //    private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     var errorLiveData = MutableLiveData<String>()
-    var toastMessageLiveData = MutableLiveData<String>()
 
     suspend fun sendUser(
         login: String,
@@ -45,7 +44,6 @@ class SignInViewModel(
             try {
                 repository.getUserService().postUser(user)
                 errorLiveData.postValue(null)
-                toastMessageLiveData.postValue("Create user success")
             } catch (e: Exception) {
                 errorLiveData.postValue(e.message)
             }

@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity_global.GlobalActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity android:name=".activity_signin.SignInActivity"
             android:screenOrientation="portrait"/>
     </application>

@@ -5,6 +5,8 @@ import android.text.InputFilter
 fun loginFilter(): InputFilter {
     return InputFilter { source, start, end, dest, dstart, dend ->
         if (dest != null && source != null) {
+            if(source == "@" && dest.contains("@"))
+                return@InputFilter ""
             if (dest.toString() == "" && source != "@")
                 return@InputFilter "@$source"
             if (dest.toString() != "" && dest[0] != '@')

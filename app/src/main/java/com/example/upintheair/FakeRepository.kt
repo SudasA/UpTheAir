@@ -5,7 +5,7 @@ import com.example.upintheair.entity.Wish
 object FakeRepository {
     fun getData(): MutableList<Wish> {
         var list: MutableList<Wish> = mutableListOf()
-        for (i: Int in 1..100) list.add(
+        for (i: Int in 1..30) list.add(
             Wish(
                 i,
                 "Название $i",

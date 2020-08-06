@@ -1,9 +1,12 @@
 package com.example.upintheair.activity_global
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.upintheair.R
+import com.example.upintheair.fragment_addwish.AddWishFragment
 import com.example.upintheair.fragment_wishlist.WishListFragment
+import kotlinx.android.synthetic.main.activity_global.*
 
 class GlobalActivity : AppCompatActivity() {
 
@@ -12,6 +15,7 @@ class GlobalActivity : AppCompatActivity() {
         setContentView(R.layout.activity_global)
 
         openWishListFragment()
+
     }
 
     fun openWishListFragment() {
@@ -21,7 +25,7 @@ class GlobalActivity : AppCompatActivity() {
                 R.id.fragment_container,
                 WishListFragment()
             )
+            .addToBackStack("wish_list")
             .commit()
     }
-
 }

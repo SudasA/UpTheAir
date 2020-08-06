@@ -5,13 +5,14 @@
     android:layout_height="wrap_content"
     android:layout_margin="6sp"
     android:orientation="horizontal"
-    android:padding="16sp">
+    android:padding="16sp"
+    android:background="@color/colorAccent">
 
     <TextView
         android:id="@+id/name_wish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="name_wish"
+        android:text="@string/name_wish"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,7 +20,7 @@
         android:id="@+id/description_wish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="description_wish"
+        android:text="@string/description_wish"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_wish" />

@@ -3,10 +3,11 @@ package com.example.upintheair.activity_signin
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.upintheair.entity.UserRequest
+import com.example.upintheair.md5
 import com.example.upintheair.network.RetrofitRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
 class SignInViewModel(
@@ -15,30 +16,37 @@ class SignInViewModel(
 //    private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     var errorLiveData = MutableLiveData<String>()
-    var tempLiveData = MutableLiveData<String>()
 
-    fun sendUser(
+    suspend fun sendUser(
         login: String,
         username: String,
         password: String,
         repeatPassword: String
     ) {
-        if (login != "" && username != "" && password != "" && repeatPassword != "") {
-            if (checkPassword(password, repeatPassword)) {
-                CoroutineScope(coroutineContext).async {
-                    val user = UserRequest(login, username, password)
-                    postUser(user)
+
+        when {
+            login == "" || username == "" || password == "" || repeatPassword == "" ->
+                errorLiveData.value = "error_with_all_edit_text"
+            password.length < 8 ->
+                errorLiveData.value = "error_with_size_of_password"
+            !checkPassword(password, repeatPassword) ->
+                errorLiveData.value = "error_with_repeat_password"
+            else -> {
+                withContext(CoroutineScope(coroutineContext).coroutineContext) {
+                    val user = UserRequest(login, username, password.md5())
+                    createNewUser(user)
                 }
-            } else {
-                errorLiveData.value = "Вы неправильно повторили пароль"
             }
-        } else {
-            errorLiveData.value = "Все поля должны быть заполнены"
         }
     }
 
-    suspend fun postUser(user: UserRequest) {
-        repository.getUserService().postUser(user).string()
+    suspend fun createNewUser(user: UserRequest){
+            try {
+                repository.getUserService().postUser(user)
+                errorLiveData.value = "successes"
+            } catch (e: Exception) {
+                errorLiveData.value = e.message
+            }
     }
 
     override val coroutineContext: CoroutineContext

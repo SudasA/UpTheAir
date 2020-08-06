@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.upintheair.R
 import com.example.upintheair.entity.Wish
+import com.example.upintheair.fragment_addwish.AddWishFragment
+import kotlinx.android.synthetic.main.fragment_wishlist.*
 import kotlinx.android.synthetic.main.fragment_wishlist.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,8 +34,8 @@ class WishListFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_wishlist, container, false)
 
         wishListAdapter = WishListAdapter(OnItemClick)
-        rootView.recyclerview_wishlist.layoutManager = LinearLayoutManager(activity)
-        rootView.recyclerview_wishlist.adapter = wishListAdapter
+        rootView.recyclerview_wish_list.layoutManager = LinearLayoutManager(activity)
+        rootView.recyclerview_wish_list.adapter = wishListAdapter
 
         return rootView
     }
@@ -44,6 +47,27 @@ class WishListFragment : Fragment() {
 
         mViewModel.wishListData.observe(viewLifecycleOwner, observe)
 
+        button_add_wish.setOnClickListener(clickButtonAddWish)
+
+    }
+
+    val clickButtonAddWish = object : View.OnClickListener{
+        override fun onClick(v: View?) {
+            openAddWishFragment()
+        }
+    }
+
+    fun openAddWishFragment() {
+        if (activity != null) {
+            activity!!.supportFragmentManager
+                .beginTransaction()
+                .replace(
+                    R.id.fragment_container,
+                    AddWishFragment()
+                )
+                .addToBackStack("add_wish")
+                .commit()
+        }
     }
 
     val OnItemClick = object : WishListAdapter.OnItemClick {

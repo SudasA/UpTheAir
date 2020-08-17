@@ -52,28 +52,6 @@ class WishListFragment : Fragment() {
 
 
         mViewModel.wishListData.observe(viewLifecycleOwner, observe)
-
-        button_add_wish.setOnClickListener(clickButtonAddWish)
-
-    }
-
-    val clickButtonAddWish = object : View.OnClickListener {
-        override fun onClick(v: View?) {
-            openAddWishFragment()
-        }
-    }
-
-    fun openAddWishFragment() {
-        if (activity != null) {
-            activity!!.supportFragmentManager
-                .beginTransaction()
-                .replace(
-                    R.id.fragment_container,
-                    AddWishFragment()
-                )
-//                .addToBackStack("add_wish")
-                .commit()
-        }
     }
 
     val OnItemClick = object : WishListAdapter.OnItemClick {

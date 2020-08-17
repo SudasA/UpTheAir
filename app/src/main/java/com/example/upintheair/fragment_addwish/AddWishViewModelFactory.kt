@@ -2,12 +2,11 @@ package com.example.upintheair.fragment_addwish
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.upintheair.FakeRepository
-import com.example.upintheair.network.RetrofitRepository
+import com.example.upintheair.WishesRoomDatabase
 
 @Suppress("UNCHECKED_CAST")
 class AddWishViewModelFactory(
-    private val repository: RetrofitRepository
+    private val repository: WishesRoomDatabase
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return if (modelClass == AddWishViewModel::class.java)

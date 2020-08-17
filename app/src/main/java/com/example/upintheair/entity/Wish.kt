@@ -1,7 +1,12 @@
 package com.example.upintheair.entity
 
-data class Wish (
-    val id: Int,
-    val name: String,
-    val description:String?
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "wishes")
+data class Wish(
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "wish_id") val id: Int?,
+    @ColumnInfo(name = "wish_name") val name: String,
+    @ColumnInfo(name = "wish_description") val description: String
 )

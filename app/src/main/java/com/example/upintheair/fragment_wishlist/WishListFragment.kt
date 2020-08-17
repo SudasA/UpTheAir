@@ -1,11 +1,11 @@
 package com.example.upintheair.fragment_wishlist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.upintheair.R
@@ -20,7 +20,7 @@ class WishListFragment : Fragment() {
     val mViewModel: WishListViewModel by viewModel()
     lateinit var wishListAdapter: WishListAdapter
 
-    private val observe = Observer<List<Wish>>{list ->
+    private val observe = Observer<List<Wish>> { list ->
         wishListAdapter.list.addAll(list)
         wishListAdapter.notifyDataSetChanged()
     }
@@ -43,7 +43,13 @@ class WishListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mViewModel.getWishList()
+        try {
+            if (context != null)
+                mViewModel.getWishList(context!!)
+        } catch (e: Exception) {
+            Log.e("ERROR", e.message)
+        }
+
 
         mViewModel.wishListData.observe(viewLifecycleOwner, observe)
 
@@ -51,7 +57,7 @@ class WishListFragment : Fragment() {
 
     }
 
-    val clickButtonAddWish = object : View.OnClickListener{
+    val clickButtonAddWish = object : View.OnClickListener {
         override fun onClick(v: View?) {
             openAddWishFragment()
         }
@@ -65,7 +71,7 @@ class WishListFragment : Fragment() {
                     R.id.fragment_container,
                     AddWishFragment()
                 )
-                .addToBackStack("add_wish")
+//                .addToBackStack("add_wish")
                 .commit()
         }
     }

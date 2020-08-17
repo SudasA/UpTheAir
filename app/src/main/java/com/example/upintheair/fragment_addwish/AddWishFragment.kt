@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.example.upintheair.R
+import com.example.upintheair.fragment_wishlist.WishListFragment
 import kotlinx.android.synthetic.main.fragment_addwish.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -26,14 +29,49 @@ class AddWishFragment : Fragment() {
 
         button_add_wish.setOnClickListener(clickOnButtonAddWish)
 
-    }
-
-    val clickOnButtonAddWish = object : View.OnClickListener{
-        override fun onClick(v: View?) {
-
-
-
+        if (activity != null) {
+            mViewModel.loadingLiveData.observe(activity!!, Observer<Boolean> {
+                when (it) {
+                    false -> {
+                        progress_bar.visibility = View.GONE
+                        button_add_wish.visibility = View.VISIBLE
+                        activity!!.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                    }
+                    true -> {
+                        activity!!.window.setFlags(
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                        )
+                        button_add_wish.visibility = View.INVISIBLE
+                        progress_bar.visibility = View.VISIBLE
+                    }
+                }
+            })
         }
 
+    }
+
+    val clickOnButtonAddWish = object : View.OnClickListener {
+        override fun onClick(v: View?) {
+
+            if (context != null)
+                mViewModel.sendWish(
+                    context!!,
+                    edit_text_name_wish.text.toString(),
+                    edit_text_description_wish.text.toString()
+                )
+        }
+    }
+
+    fun openWishListFragment() {
+        if (activity != null) {
+            activity!!.supportFragmentManager
+                .beginTransaction()
+                .replace(
+                    R.id.fragment_container,
+                    WishListFragment()
+                )
+                .commit()
+        }
     }
 }

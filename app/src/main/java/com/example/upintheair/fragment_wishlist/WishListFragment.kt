@@ -1,7 +1,6 @@
 package com.example.upintheair.fragment_wishlist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.upintheair.R
 import com.example.upintheair.entity.Wish
-import com.example.upintheair.fragment_addwish.AddWishFragment
-import kotlinx.android.synthetic.main.fragment_wishlist.*
 import kotlinx.android.synthetic.main.fragment_wishlist.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -43,14 +40,7 @@ class WishListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        try {
-            if (context != null)
-                mViewModel.getWishList(context!!)
-        } catch (e: Exception) {
-            Log.e("ERROR", e.message)
-        }
-
-
+        mViewModel.getWishList()
         mViewModel.wishListData.observe(viewLifecycleOwner, observe)
     }
 

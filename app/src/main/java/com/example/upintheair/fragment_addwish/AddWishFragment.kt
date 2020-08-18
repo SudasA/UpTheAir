@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.upintheair.R
 import com.example.upintheair.fragment_wishlist.WishListFragment
+import kotlinx.android.synthetic.main.activity_global.*
 import kotlinx.android.synthetic.main.fragment_addwish.*
+import kotlinx.android.synthetic.main.fragment_addwish.button_add_wish
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddWishFragment : Fragment() {
@@ -47,19 +49,22 @@ class AddWishFragment : Fragment() {
                     }
                 }
             })
+
+            mViewModel.goToWishListFragment.observe(activity!!, Observer<Boolean> {
+                if (it) {
+                    openWishListFragment()
+                }
+            })
         }
 
     }
 
     val clickOnButtonAddWish = object : View.OnClickListener {
         override fun onClick(v: View?) {
-
-            if (context != null)
-                mViewModel.sendWish(
-                    context!!,
-                    edit_text_name_wish.text.toString(),
-                    edit_text_description_wish.text.toString()
-                )
+            mViewModel.sendWish(
+                edit_text_name_wish.text.toString(),
+                edit_text_description_wish.text.toString()
+            )
         }
     }
 

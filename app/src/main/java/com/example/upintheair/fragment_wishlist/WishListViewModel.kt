@@ -18,11 +18,11 @@ class WishListViewModel(
 
     val wishListData = MutableLiveData<MutableList<Wish>>()
 
-    fun getWishList(context: Context) = CoroutineScope(coroutineContext).launch {
-            getWishListFromDatabase(context)
+    fun getWishList() = CoroutineScope(coroutineContext).launch {
+            getWishListFromDatabase()
         }
 
-    suspend fun getWishListFromDatabase(context: Context) {
+    suspend fun getWishListFromDatabase() {
         CoroutineScope(coroutineContext).async {
             val temp = repository.getAllWishes()
             wishListData.postValue(temp)

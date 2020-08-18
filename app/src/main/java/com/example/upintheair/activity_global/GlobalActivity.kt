@@ -37,13 +37,14 @@ class GlobalActivity : AppCompatActivity() {
     }
 
     fun openAddWishFragment() {
+        button_add_wish.visibility = View.GONE
+
         supportFragmentManager
             .beginTransaction()
             .replace(
                 R.id.fragment_container,
                 AddWishFragment()
             )
-//                .addToBackStack("add_wish")
             .commit()
     }
 }

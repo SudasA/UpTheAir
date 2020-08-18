@@ -15,8 +15,6 @@ class GlobalActivity : AppCompatActivity() {
         setContentView(R.layout.activity_global)
 
         openWishListFragment()
-
-        button_add_wish.setOnClickListener(clickButtonAddWish)
     }
 
     fun openWishListFragment() {
@@ -30,21 +28,4 @@ class GlobalActivity : AppCompatActivity() {
             .commit()
     }
 
-    val clickButtonAddWish = object : View.OnClickListener {
-        override fun onClick(v: View?) {
-            openAddWishFragment()
-        }
-    }
-
-    fun openAddWishFragment() {
-        button_add_wish.visibility = View.GONE
-
-        supportFragmentManager
-            .beginTransaction()
-            .replace(
-                R.id.fragment_container,
-                AddWishFragment()
-            )
-            .commit()
-    }
 }

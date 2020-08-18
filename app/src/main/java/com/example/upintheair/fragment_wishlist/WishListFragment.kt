@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.upintheair.R
 import com.example.upintheair.entity.Wish
+import com.example.upintheair.fragment_addwish.AddWishFragment
+import kotlinx.android.synthetic.main.fragment_wishlist.*
 import kotlinx.android.synthetic.main.fragment_wishlist.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,6 +22,12 @@ class WishListFragment : Fragment() {
     private val observe = Observer<List<Wish>> { list ->
         wishListAdapter.list.addAll(list)
         wishListAdapter.notifyDataSetChanged()
+    }
+
+    val clickButtonAddWish = object : View.OnClickListener {
+        override fun onClick(v: View?) {
+            openAddWishFragment()
+        }
     }
 
     override fun onCreateView(
@@ -39,6 +47,7 @@ class WishListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        button_add_wish.setOnClickListener(clickButtonAddWish)
 
         mViewModel.getWishList()
         mViewModel.wishListData.observe(viewLifecycleOwner, observe)
@@ -48,6 +57,17 @@ class WishListFragment : Fragment() {
         override fun OnItemClicked(wishId: Int) {
 
         }
+    }
 
+    fun openAddWishFragment() {
+        if (activity != null) {
+            activity!!.supportFragmentManager
+                .beginTransaction()
+                .replace(
+                    R.id.fragment_container,
+                    AddWishFragment()
+                )
+                .commit()
+        }
     }
 }

@@ -15,7 +15,6 @@ class GlobalActivity : AppCompatActivity() {
         setContentView(R.layout.activity_global)
 
         openWishListFragment()
-
     }
 
     fun openWishListFragment() {
@@ -28,4 +27,5 @@ class GlobalActivity : AppCompatActivity() {
             .addToBackStack("wish_list")
             .commit()
     }
+
 }

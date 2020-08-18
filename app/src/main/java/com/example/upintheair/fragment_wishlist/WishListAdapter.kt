@@ -43,7 +43,7 @@ class WishListAdapter(
         val wish = list[position]
         holder.bind(wish)
         holder.itemView.setOnClickListener {
-            callback.OnItemClicked(holder.adapterPosition)
+            callback.OnItemClicked(wish.id!!)
         }
     }
 }

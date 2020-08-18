@@ -1,14 +1,15 @@
 package com.example.upintheair.fragment_wishlist
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.upintheair.R
+import com.example.upintheair.activity_wish.WishActivity
 import com.example.upintheair.entity.Wish
 import com.example.upintheair.fragment_addwish.AddWishFragment
 import kotlinx.android.synthetic.main.fragment_wishlist.*
@@ -20,9 +21,15 @@ class WishListFragment : Fragment() {
     val mViewModel: WishListViewModel by viewModel()
     lateinit var wishListAdapter: WishListAdapter
 
-    private val observe = Observer<List<Wish>>{list ->
+    private val observe = Observer<List<Wish>> { list ->
         wishListAdapter.list.addAll(list)
         wishListAdapter.notifyDataSetChanged()
+    }
+
+    val clickButtonAddWish = object : View.OnClickListener {
+        override fun onClick(v: View?) {
+            openAddWishFragment()
+        }
     }
 
     override fun onCreateView(
@@ -42,18 +49,17 @@ class WishListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        mViewModel.getWishList()
-
-        mViewModel.wishListData.observe(viewLifecycleOwner, observe)
-
         button_add_wish.setOnClickListener(clickButtonAddWish)
 
+        mViewModel.getWishList()
+        mViewModel.wishListData.observe(viewLifecycleOwner, observe)
     }
 
-    val clickButtonAddWish = object : View.OnClickListener{
-        override fun onClick(v: View?) {
-            openAddWishFragment()
+    val OnItemClick = object : WishListAdapter.OnItemClick {
+        override fun OnItemClicked(wishId: Int) {
+            val intent = Intent(activity, WishActivity::class.java)
+            intent.putExtra("WISH_ID_KEY", wishId)
+            startActivity(intent)
         }
     }
 
@@ -65,15 +71,7 @@ class WishListFragment : Fragment() {
                     R.id.fragment_container,
                     AddWishFragment()
                 )
-                .addToBackStack("add_wish")
                 .commit()
         }
-    }
-
-    val OnItemClick = object : WishListAdapter.OnItemClick {
-        override fun OnItemClicked(wishId: Int) {
-
-        }
-
     }
 }

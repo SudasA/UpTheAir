@@ -2,6 +2,7 @@ package com.example.upintheair.di
 
 import com.example.upintheair.activity_signin.signInModule
 import com.example.upintheair.activity_start.startModule
+import com.example.upintheair.activity_wish.wishModule
 import com.example.upintheair.fragment_addwish.addWishFragment
 import com.example.upintheair.fragment_wishlist.wishListFragment
 
@@ -10,5 +11,6 @@ val applicationModules = listOf(
     signInModule,
     wishListFragment,
     startModule,
-    addWishFragment
+    addWishFragment,
+    wishModule
 )

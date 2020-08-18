@@ -1,10 +1,8 @@
 package com.example.upintheair.fragment_addwish
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.upintheair.LocalRepository
-import com.example.upintheair.WishesRoomDatabase
 import com.example.upintheair.entity.Wish
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,25 +17,29 @@ class AddWishViewModel(
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
 
-    val loadingLiveData = MutableLiveData<Boolean>(false)
-    val goToWishListFragment = MutableLiveData<Boolean>(false)
+    val loading = MutableLiveData<Boolean>(false)
+    val result = MutableLiveData<String>()
 
-    fun sendWish(name: String, description: String){
+    fun sendWish(name: String, description: String) {
         val wish = Wish(null, name, description)
         CoroutineScope(coroutineContext).launch {
-//            loadingLiveData.value = true
-            loadingLiveData.postValue(true)
-
-            addWishInDatabase(wish)
-
-            loadingLiveData.postValue(false)
-            goToWishListFragment.postValue(true)
-
+            loading.postValue(true)
+            if (checkWish(wish)) {
+                addWishInDatabase(wish)
+                result.postValue("successes")
+            } else{
+                result.postValue("error_with_name_wish")
+            }
+                loading.postValue(false)
         }
-
     }
 
-    suspend fun addWishInDatabase(wish: Wish){
+    fun checkWish(wish: Wish): Boolean {
+        if (wish.name != null && wish.name != "") return true
+        return false
+    }
+
+    suspend fun addWishInDatabase(wish: Wish) {
         CoroutineScope(coroutineContext).async {
             repository.createWish(wish)
         }.await()

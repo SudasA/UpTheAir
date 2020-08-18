@@ -95,8 +95,4 @@ class SignInActivity : AppCompatActivity() {
         val intent = Intent(this, GlobalActivity::class.java)
         startActivity(intent)
     }
-
-    fun toastMessage(message: String) {
-        Toast.makeText(this@SignInActivity, message, Toast.LENGTH_SHORT).show()
-    }
 }

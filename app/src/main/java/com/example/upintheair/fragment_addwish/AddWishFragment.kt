@@ -5,18 +5,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.upintheair.R
 import com.example.upintheair.fragment_wishlist.WishListFragment
-import kotlinx.android.synthetic.main.activity_global.*
 import kotlinx.android.synthetic.main.fragment_addwish.*
-import kotlinx.android.synthetic.main.fragment_addwish.button_add_wish
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddWishFragment : Fragment() {
 
     val mViewModel: AddWishViewModel by viewModel()
+
+    private val observerLoading = Observer<Boolean> {
+        when (it) {
+            false -> {
+                progress_bar.visibility = View.GONE
+                button_add_wish.visibility = View.VISIBLE
+                activity!!.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            }
+            true -> {
+                activity!!.window.setFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                )
+                button_add_wish.visibility = View.INVISIBLE
+                progress_bar.visibility = View.VISIBLE
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,31 +49,20 @@ class AddWishFragment : Fragment() {
         button_add_wish.setOnClickListener(clickOnButtonAddWish)
 
         if (activity != null) {
-            mViewModel.loadingLiveData.observe(activity!!, Observer<Boolean> {
-                when (it) {
-                    false -> {
-                        progress_bar.visibility = View.GONE
-                        button_add_wish.visibility = View.VISIBLE
-                        activity!!.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                    }
-                    true -> {
-                        activity!!.window.setFlags(
-                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                        )
-                        button_add_wish.visibility = View.INVISIBLE
-                        progress_bar.visibility = View.VISIBLE
-                    }
-                }
-            })
+            mViewModel.loading.observe(activity!!, observerLoading)
 
-            mViewModel.goToWishListFragment.observe(activity!!, Observer<Boolean> {
-                if (it) {
-                    openWishListFragment()
+            mViewModel.result.observe(activity!!, Observer<String> {
+                when (it) {
+                    "successes" -> openWishListFragment()
+                    "error_with_name_wish" -> toastMessage(resources.getString(R.string.error_with_name_wish))
                 }
             })
         }
+    }
 
+    fun toastMessage(message: String) {
+        if (activity != null)
+            Toast.makeText(activity!!, message, Toast.LENGTH_SHORT).show()
     }
 
     val clickOnButtonAddWish = object : View.OnClickListener {

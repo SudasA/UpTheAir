@@ -14,7 +14,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity_start.StartActivity"
             android:theme="@style/AppTheme.Launcher"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,6 +25,8 @@
         <activity android:name=".activity_global.GlobalActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity_signin.SignInActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity_wish.WishActivity"
             android:screenOrientation="portrait"/>
     </application>
 

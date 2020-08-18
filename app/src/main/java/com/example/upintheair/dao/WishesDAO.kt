@@ -11,6 +11,9 @@ interface WishesDAO {
     @Query("SELECT * from wishes")
     fun getAllWishes(): MutableList<Wish>
 
+    @Query("SELECT * from wishes WHERE wish_id=:id")
+    fun getWish(id: Int): Wish
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun createWish(wish: Wish)
 

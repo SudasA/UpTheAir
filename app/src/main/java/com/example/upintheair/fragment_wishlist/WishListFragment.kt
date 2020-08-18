@@ -1,5 +1,6 @@
 package com.example.upintheair.fragment_wishlist
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.upintheair.R
+import com.example.upintheair.activity_wish.WishActivity
 import com.example.upintheair.entity.Wish
 import com.example.upintheair.fragment_addwish.AddWishFragment
 import kotlinx.android.synthetic.main.fragment_wishlist.*
@@ -55,7 +57,9 @@ class WishListFragment : Fragment() {
 
     val OnItemClick = object : WishListAdapter.OnItemClick {
         override fun OnItemClicked(wishId: Int) {
-
+            val intent = Intent(activity, WishActivity::class.java)
+            intent.putExtra("WISH_ID_KEY", wishId)
+            startActivity(intent)
         }
     }
 

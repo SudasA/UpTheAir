@@ -7,47 +7,50 @@ import com.example.upintheair.md5
 import com.example.upintheair.network.RetrofitRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class SignInViewModel(
     private val repository: RetrofitRepository
 ) : ViewModel(), CoroutineScope {
-//    private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
-    var errorLiveData = MutableLiveData<String>()
+    var error = MutableLiveData<String>()
+    var loading = MutableLiveData<Boolean>(false)
 
-    suspend fun sendUser(
+    fun createUser(
         login: String,
         username: String,
         password: String,
         repeatPassword: String
-    ) {
+    ) = CoroutineScope(coroutineContext).launch {
+        loading.postValue(true)
 
         when {
             login == "" || username == "" || password == "" || repeatPassword == "" ->
-                errorLiveData.value = "error_with_all_edit_text"
+                error.value = "error_with_all_edit_text"
             password.length < 8 ->
-                errorLiveData.value = "error_with_size_of_password"
+                error.value = "error_with_size_of_password"
             !checkPassword(password, repeatPassword) ->
-                errorLiveData.value = "error_with_repeat_password"
+                error.value = "error_with_repeat_password"
             else -> {
-                withContext(CoroutineScope(coroutineContext).coroutineContext) {
-                    val user = UserRequest(login, username, password.md5())
-                    createNewUser(user)
-                }
+                val user = UserRequest(login, username, password.md5())
+                createNewUser(user)
             }
         }
+
+        loading.postValue(false)
     }
 
-    suspend fun createNewUser(user: UserRequest){
-            try {
-                repository.getUserService().postUser(user)
-                errorLiveData.value = "successes"
-            } catch (e: Exception) {
-                errorLiveData.value = e.message
-            }
-    }
+
+    suspend fun createNewUser(user: UserRequest) = CoroutineScope(coroutineContext).async {
+        try {
+            repository.getUserService().postUser(user)
+            error.value = "successes"
+        } catch (e: Exception) {
+            error.value = e.message
+        }
+    }.await()
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main

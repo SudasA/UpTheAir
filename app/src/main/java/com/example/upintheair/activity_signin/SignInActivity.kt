@@ -4,22 +4,60 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.example.upintheair.R
 import com.example.upintheair.activity_global.GlobalActivity
 import com.example.upintheair.loginFilter
 import kotlinx.android.synthetic.main.activity_signin.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignInActivity : AppCompatActivity() {
 
     val mViewModel: SignInViewModel by viewModel()
+
+    private val observerLoading = Observer<Boolean> {
+        when (it) {
+            false -> {
+                progress_bar.visibility = View.GONE
+                button_sing_in.visibility = View.VISIBLE
+
+                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            }
+            true -> {
+                window.setFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                )
+
+                button_sing_in.visibility = View.INVISIBLE
+                progress_bar.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private val observerError = Observer<String> {
+        when (it) {
+            "successes" -> {
+                openLogIn()
+            }
+            "error_with_size_of_password" -> text_error.text =
+                resources.getText(R.string.error_with_size_of_password)
+            "error_with_repeat_password" -> text_error.text =
+                resources.getString(R.string.error_with_repeat_password)
+            "error_with_all_edit_text" -> text_error.text =
+                resources.getString(R.string.error_with_all_edit_text)
+            else -> {
+                if (mViewModel != null)
+                    Toast.makeText(
+                        this@SignInActivity,
+                        mViewModel.error.value!!,
+                        Toast.LENGTH_SHORT
+                    ).show()
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,9 +65,11 @@ class SignInActivity : AppCompatActivity() {
 
         edit_text_login.filters += loginFilter()
 
-        progress_bar.visibility = ProgressBar.GONE
+        mViewModel.error.observe(this, observerError)
+        mViewModel.loading.observe(this, observerLoading)
 
         button_sing_in.setOnClickListener(clickOnButtonSignIn)
+
         text_log_in.setOnClickListener {
             openLogIn()
         }
@@ -38,56 +78,15 @@ class SignInActivity : AppCompatActivity() {
     private val clickOnButtonSignIn = object : View.OnClickListener {
         override fun onClick(v: View?) {
 
-            CoroutineScope(Dispatchers.Main).launch {
-                window.setFlags(
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                )
-
-                button_sing_in.visibility = View.INVISIBLE
-                progress_bar.visibility = View.VISIBLE
-
 //                delay(1000)
 
-                toDo()
+            mViewModel.createUser(
+                edit_text_login.text.toString(),
+                edit_text_username.text.toString(),
+                edit_text_password.text.toString(),
+                edit_text_repeat_password.text.toString()
+            )
 
-                progress_bar.visibility = View.GONE
-                button_sing_in.visibility = View.VISIBLE
-
-                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            }
-        }
-    }
-
-    suspend fun toDo(){
-        //create post request
-        mViewModel.sendUser(
-            edit_text_login.text.toString(),
-            edit_text_username.text.toString(),
-            edit_text_password.text.toString(),
-            edit_text_repeat_password.text.toString()
-        )
-
-        //output result
-        if (mViewModel.errorLiveData.value != null) {
-            when (mViewModel.errorLiveData.value) {
-                "successes" -> {
-                    openLogIn()
-                }
-                "error_with_size_of_password" -> text_error.text =
-                    resources.getText(R.string.error_with_size_of_password)
-                "error_with_repeat_password" -> text_error.text =
-                    resources.getString(R.string.error_with_repeat_password)
-                "error_with_all_edit_text" -> text_error.text =
-                    resources.getString(R.string.error_with_all_edit_text)
-                else ->
-                    Toast.makeText(
-                        this@SignInActivity,
-                        mViewModel.errorLiveData.value!!,
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-            }
         }
     }
 

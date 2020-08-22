@@ -1,9 +1,8 @@
 package com.example.upintheair.fragment_wishlist
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.upintheair.LocalRepository
+import com.example.upintheair.room.WishesDatabase
 import com.example.upintheair.entity.Wish
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +12,7 @@ import kotlin.coroutines.CoroutineContext
 
 @Suppress("UNCHECKED_CAST")
 class WishListViewModel(
-    private val repository: LocalRepository
+    private val repository: WishesDatabase
 ) : ViewModel(), CoroutineScope {
 
     val wishListData = MutableLiveData<MutableList<Wish>>()

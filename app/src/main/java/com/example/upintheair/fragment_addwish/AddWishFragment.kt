@@ -69,8 +69,7 @@ class AddWishFragment : Fragment() {
         override fun onClick(v: View?) {
             mViewModel.sendWish(
                 edit_text_name_wish.text.toString(),
-                edit_text_description_wish.text.toString(),
-                context!!
+                edit_text_description_wish.text.toString()
             )
         }
     }

@@ -1,10 +1,10 @@
-package com.example.upintheair
+package com.example.upintheair.room
 
 import android.content.Context
 import com.example.upintheair.dao.WishesDAO
 import com.example.upintheair.entity.Wish
 
-class LocalRepository(context: Context) {
+class WishesDatabase(context: Context) {
     private val wishesDAO: WishesDAO = WishesRoomDatabase(context).getWishesDao()
 
     fun getAllWishes() = wishesDAO.getAllWishes()

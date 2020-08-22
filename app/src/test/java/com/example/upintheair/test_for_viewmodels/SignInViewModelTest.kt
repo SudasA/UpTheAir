@@ -3,7 +3,8 @@ package com.example.upintheair.test_for_viewmodels
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.upintheair.activity_signin.SignInViewModel
 import com.example.upintheair.network.RetrofitRepository
-import junit.framework.Assert.assertNotNull
+//import junit.framework.Assert.assertNotNull
+import junit.framework.TestCase.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

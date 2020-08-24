@@ -20,7 +20,7 @@ abstract class WishesRoomDatabase : RoomDatabase() {
             INSTANCE ?: buildDatabase(context).also {
                 INSTANCE = it
             }
-    }
+        }
 
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(
@@ -28,5 +28,5 @@ abstract class WishesRoomDatabase : RoomDatabase() {
                 WishesRoomDatabase::class.java,
                 "wishes"
             ).build()
-}
+    }
 }

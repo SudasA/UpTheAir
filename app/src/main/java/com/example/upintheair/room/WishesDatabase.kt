@@ -14,4 +14,6 @@ class WishesDatabase(context: Context) {
     fun getWish(id: Int) = wishesDAO.getWish(id)
 
     suspend fun deleteWishById(id: Int) = wishesDAO.deleteWishById(id)
+
+    suspend fun getLastWish() = wishesDAO.getLastWish()
 }

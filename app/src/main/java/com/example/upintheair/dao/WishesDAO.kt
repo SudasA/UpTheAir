@@ -22,4 +22,7 @@ interface WishesDAO {
 
     @Query("DELETE FROM wishes WHERE wish_id = :id")
     suspend fun deleteWishById(id: Int)
+
+    @Query("SELECT * FROM wishes WHERE wish_id=(SELECT MAX(wish_id) FROM wishes) LIMIT 1")
+    suspend fun getLastWish(): Wish
 }

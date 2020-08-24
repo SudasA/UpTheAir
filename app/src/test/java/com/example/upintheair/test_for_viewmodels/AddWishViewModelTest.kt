@@ -1,5 +1,6 @@
 package com.example.upintheair.test_for_viewmodels
 
+import android.content.Context
 import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.upintheair.FirestoreDatabase
@@ -24,11 +25,10 @@ class AddWishViewModelTest {
     @Mock
     lateinit var removeRepository: FirestoreDatabase
 
-    lateinit var vm: AddWishViewModel
+    @Mock
+    lateinit var context: Context
 
-//    @Rule
-//    @JvmField
-//    val mockitoRule: MockitoRule = MockitoJUnit.rule()
+    lateinit var vm: AddWishViewModel
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
@@ -36,9 +36,8 @@ class AddWishViewModelTest {
     @Before
     fun setup(){
         try {
-            vm = AddWishViewModel(localRepository, removeRepository)
+            vm = AddWishViewModel(localRepository, removeRepository, context)
         } catch (e: Exception) {
-            Log.e("ERROR", e.message)
             print(e.message)
         }
     }

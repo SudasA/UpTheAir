@@ -1,6 +1,5 @@
-package com.example.upintheair
+package com.example.upintheair.room
 
-import android.app.Application
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
@@ -21,7 +20,7 @@ abstract class WishesRoomDatabase : RoomDatabase() {
             INSTANCE ?: buildDatabase(context).also {
                 INSTANCE = it
             }
-    }
+        }
 
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(
@@ -29,5 +28,5 @@ abstract class WishesRoomDatabase : RoomDatabase() {
                 WishesRoomDatabase::class.java,
                 "wishes"
             ).build()
-}
+    }
 }

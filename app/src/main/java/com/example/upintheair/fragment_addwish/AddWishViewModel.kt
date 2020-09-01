@@ -1,9 +1,13 @@
 package com.example.upintheair.fragment_addwish
 
+import android.content.Context
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.upintheair.LocalRepository
+import com.example.upintheair.FirestoreDatabase
 import com.example.upintheair.entity.Wish
+import com.example.upintheair.isOnline
+import com.example.upintheair.room.WishesDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -11,7 +15,9 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class AddWishViewModel(
-    private val repository: LocalRepository
+    private val localRepository: WishesDatabase,
+    private val removeRepository: FirestoreDatabase,
+    private val context: Context
 ) : ViewModel(), CoroutineScope {
 
     override val coroutineContext: CoroutineContext
@@ -19,18 +25,25 @@ class AddWishViewModel(
 
     val loading = MutableLiveData<Boolean>(false)
     val result = MutableLiveData<String>()
+    private var isOnline = isOnline(context)
 
     fun sendWish(name: String, description: String) {
         val wish = Wish(null, name, description)
         CoroutineScope(coroutineContext).launch {
             loading.postValue(true)
             if (checkWish(wish)) {
-                addWishInDatabase(wish)
+                addWishInLocalRepository(wish)
+
+                if (isOnline) {
+                    var newWish = localRepository.getLastWish()
+                    addWishInRemoveRepository(newWish)
+                }
+
                 result.postValue("successes")
-            } else{
+            } else {
                 result.postValue("error_with_name_wish")
             }
-                loading.postValue(false)
+            loading.postValue(false)
         }
     }
 
@@ -39,9 +52,13 @@ class AddWishViewModel(
         return false
     }
 
-    suspend fun addWishInDatabase(wish: Wish) {
+    suspend fun addWishInLocalRepository(wish: Wish) {
         CoroutineScope(coroutineContext).async {
-            repository.createWish(wish)
+            localRepository.createWish(wish)
         }.await()
+    }
+
+    fun addWishInRemoveRepository(wish: Wish) = CoroutineScope(coroutineContext).launch {
+        removeRepository.createWish(wish)
     }
 }

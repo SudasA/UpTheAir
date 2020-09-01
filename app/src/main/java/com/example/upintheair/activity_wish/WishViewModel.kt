@@ -2,15 +2,14 @@ package com.example.upintheair.activity_wish
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.upintheair.LocalRepository
+import com.example.upintheair.room.WishesDatabase
 import com.example.upintheair.entity.Wish
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class WishViewModel(private val repository: LocalRepository) : ViewModel(), CoroutineScope {
+class WishViewModel(private val repository: WishesDatabase) : ViewModel(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO
 

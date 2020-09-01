@@ -20,4 +20,6 @@
     <string name="symbols_for_edit_text_login">abcdefghijklmnopqrstuvwxyz1234567890@</string>
     <string name="button_delete_wish">Удалить</string>
     <string name="button_log_in">Войти</string>
+    <string name="error_wrong_authorization">Вы ввели неправильный логин или пароль</string>
+    <string name="error_dont_have_internet_connection">Необходимо подключение интернет</string>
 </resources>

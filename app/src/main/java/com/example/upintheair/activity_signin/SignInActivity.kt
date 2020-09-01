@@ -8,7 +8,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.upintheair.R
-import com.example.upintheair.activity_global.GlobalActivity
+import com.example.upintheair.activity_login.LogInActivity
+import com.example.upintheair.activity_start.StartActivity
 import com.example.upintheair.loginFilter
 import kotlinx.android.synthetic.main.activity_signin.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -40,7 +41,7 @@ class SignInActivity : AppCompatActivity() {
     private val observerError = Observer<String> {
         when (it) {
             "successes" -> {
-                openLogIn()
+                openStartActivity()
             }
             "error_with_size_of_password" -> text_error.text =
                 resources.getText(R.string.error_with_size_of_password)
@@ -48,6 +49,7 @@ class SignInActivity : AppCompatActivity() {
                 resources.getString(R.string.error_with_repeat_password)
             "error_with_all_edit_text" -> text_error.text =
                 resources.getString(R.string.error_with_all_edit_text)
+            null -> text_error.text = " "
             else -> {
                 if (mViewModel != null)
                     Toast.makeText(
@@ -71,7 +73,7 @@ class SignInActivity : AppCompatActivity() {
         button_sing_in.setOnClickListener(clickOnButtonSignIn)
 
         text_log_in.setOnClickListener {
-            openLogIn()
+            openLogInActivity()
         }
     }
 
@@ -90,8 +92,13 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
-    fun openLogIn() {
-        val intent = Intent(this, GlobalActivity::class.java)
+    fun openStartActivity() {
+        val intent = Intent(this, StartActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun openLogInActivity() {
+        val intent = Intent(this, LogInActivity::class.java)
         startActivity(intent)
     }
 }

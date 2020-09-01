@@ -16,14 +16,18 @@
         <activity android:name=".activity_start.StartActivity"
             android:theme="@style/AppTheme.Launcher"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity_login.LogInActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity_global.GlobalActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity android:name=".activity_signin.SignInActivity"
             android:screenOrientation="portrait"/>

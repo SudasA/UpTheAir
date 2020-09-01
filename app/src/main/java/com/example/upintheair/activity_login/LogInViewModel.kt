@@ -1,5 +1,6 @@
 package com.example.upintheair.activity_login
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.upintheair.network.RetrofitRepository
 import kotlinx.coroutines.CoroutineScope
@@ -11,4 +12,7 @@ class LogInViewModel(
 ) : ViewModel(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
+
+    var error = MutableLiveData<String>(null)
+    var loading = MutableLiveData<Boolean>(false)
 }

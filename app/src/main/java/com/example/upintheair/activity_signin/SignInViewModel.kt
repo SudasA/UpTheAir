@@ -3,6 +3,7 @@ package com.example.upintheair.activity_signin
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.upintheair.entity.UserRequest
+import com.example.upintheair.isOnline
 import com.example.upintheair.md5
 import com.example.upintheair.network.RetrofitRepository
 import kotlinx.coroutines.CoroutineScope
@@ -15,7 +16,7 @@ class SignInViewModel(
     private val repository: RetrofitRepository
 ) : ViewModel(), CoroutineScope {
 
-    var error = MutableLiveData<String>()
+    var error = MutableLiveData<String>(null)
     var loading = MutableLiveData<Boolean>(false)
 
     fun createUser(

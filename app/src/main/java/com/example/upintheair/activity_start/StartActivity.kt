@@ -11,14 +11,15 @@ import com.example.upintheair.isOnline
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StartActivity : AppCompatActivity() {
-    val mViewModel: StartViewModel by viewModel()
+    val vm: StartViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
 
-        val user = false
-        routeToAppropriatePage(user)
+        vm.checkUser()
+
+        routeToAppropriatePage(vm.user.value!!)
         finish()
     }
 

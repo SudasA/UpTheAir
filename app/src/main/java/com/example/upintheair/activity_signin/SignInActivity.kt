@@ -51,12 +51,11 @@ class SignInActivity : AppCompatActivity() {
                 resources.getString(R.string.error_with_all_edit_text)
             null -> text_error.text = " "
             else -> {
-                if (mViewModel != null)
-                    Toast.makeText(
-                        this@SignInActivity,
-                        mViewModel.error.value!!,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                Toast.makeText(
+                    this@SignInActivity,
+                    mViewModel.error.value!!,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

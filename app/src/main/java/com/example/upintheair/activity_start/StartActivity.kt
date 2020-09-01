@@ -19,7 +19,7 @@ class StartActivity : AppCompatActivity() {
 
         val user = false
         routeToAppropriatePage(user)
-//        finish()
+        finish()
     }
 
     private fun routeToAppropriatePage(user: Boolean) {

@@ -30,6 +30,7 @@ class LogInViewModel(
     ) = CoroutineScope(coroutineContext).launch {
         loading.postValue(true)
         error.postValue(null)
+        user.postValue(null)
 
         if (checkLoginAndPassword(login, password)) {
             getUser(login!!)

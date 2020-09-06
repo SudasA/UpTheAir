@@ -82,6 +82,7 @@ class AddWishFragment : Fragment() {
                     R.id.fragment_container,
                     WishListFragment()
                 )
+                .addToBackStack("wishes")
                 .commit()
         }
     }

@@ -24,7 +24,7 @@ class GlobalActivity : AppCompatActivity() {
                 R.id.fragment_container,
                 WishListFragment()
             )
-            .addToBackStack("wish_list")
+//            .addToBackStack("wishes")
             .commit()
     }
 

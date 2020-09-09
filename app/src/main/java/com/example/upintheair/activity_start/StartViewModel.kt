@@ -9,6 +9,7 @@ import android.net.NetworkInfo
 import android.os.Build
 import android.util.Log
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.upintheair.SharedPreferences.UserPreferences
@@ -20,17 +21,16 @@ import kotlin.coroutines.CoroutineContext
 
 class StartViewModel(
     private val repository: UserPreferences
-) : ViewModel(), CoroutineScope {
+) : ViewModel() {
 
-    val user = MutableLiveData<Boolean>(false)
-
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main
+    private val _user = MutableLiveData<Boolean>(false)
+    val user: LiveData<Boolean>
+        get() = _user
 
     fun checkUser() {
         val temp = repository.userLogin
         if (temp != "")
-            user.value = true
+            _user.value = true
     }
 
 }

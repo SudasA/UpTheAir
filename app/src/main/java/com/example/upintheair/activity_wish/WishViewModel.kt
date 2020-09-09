@@ -18,13 +18,13 @@ class WishViewModel(private val repository: WishesDatabase) : ViewModel(), Corou
     val wish: LiveData<Wish>
         get() = _wish
 
-    fun getWish(id: Int) = CoroutineScope(coroutineContext).launch {
+    fun getWish(id: Int) = launch {
 //        getWishFromLocalRepository(id)
         val temp = repository.getWish(id)
         _wish.postValue(temp)
     }
 
-    fun deleteWish(id: Int) = CoroutineScope(coroutineContext).launch {
+    fun deleteWish(id: Int) = launch {
         repository.deleteWishById(id)
     }
 }

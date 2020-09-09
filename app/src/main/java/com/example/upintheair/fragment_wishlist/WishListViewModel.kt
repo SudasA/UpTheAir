@@ -23,7 +23,7 @@ class WishListViewModel(
     val wishList: LiveData<MutableList<Wish>>
         get() = _wishList
 
-    fun getWishList() = CoroutineScope(coroutineContext).launch {
+    fun getWishList() = launch {
             getWishListFromDatabase()
         }
 

@@ -33,7 +33,7 @@ class LogInViewModel(
     fun authorization(
         login: String?,
         password: String?
-    ) = CoroutineScope(coroutineContext).launch {
+    ) = launch {
         _loading.postValue(true)
         _error.postValue(null)
         _user.postValue(null)

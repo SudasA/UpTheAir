@@ -30,10 +30,11 @@ class AddWishViewModel(
     val result: LiveData<String>
         get() = _result
 
-    fun sendWish(name: String, description: String) {
-        val wish = Wish(null, name, description)
-        CoroutineScope(coroutineContext).launch {
+    fun sendWish(name: String, description: String) =
+        launch {
             _loading.postValue(true)
+
+            val wish = Wish(null, name, description)
             if (checkWish(wish)) {
                 addWishInLocalRepository(wish)
                 if (isOnline(context)) {
@@ -45,7 +46,6 @@ class AddWishViewModel(
                 _result.postValue("error_with_name_wish")
             }
             _loading.postValue(false)
-        }
     }
 
     private fun checkWish(wish: Wish): Boolean = wish.name != ""

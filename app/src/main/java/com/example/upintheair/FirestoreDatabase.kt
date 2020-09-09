@@ -8,8 +8,7 @@ class FirestoreDatabase {
 
     val db = FirebaseFirestore.getInstance()
 
-    fun createWish(wish: Wish) {
-        db.collection("wishes")
+    fun createWish(wish: Wish) = db.collection("wishes")
             .add(wish)
             .addOnSuccessListener {
                 Log.d("SUCCESS", it.id)
@@ -17,6 +16,4 @@ class FirestoreDatabase {
             .addOnFailureListener {
                 Log.e("ERROR", it.message)
             }
-    }
-
 }

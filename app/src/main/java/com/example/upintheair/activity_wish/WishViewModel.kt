@@ -1,9 +1,10 @@
 package com.example.upintheair.activity_wish
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.upintheair.room.WishesDatabase
 import com.example.upintheair.entity.Wish
+import com.example.upintheair.room.WishesDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,12 +14,14 @@ class WishViewModel(private val repository: WishesDatabase) : ViewModel(), Corou
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO
 
-    var wish = MutableLiveData<Wish>()
+    private var _wish = MutableLiveData<Wish>()
+    val wish: LiveData<Wish>
+        get() = _wish
 
     fun getWish(id: Int) = CoroutineScope(coroutineContext).launch {
 //        getWishFromLocalRepository(id)
         val temp = repository.getWish(id)
-        wish.postValue(temp)
+        _wish.postValue(temp)
     }
 
     fun deleteWish(id: Int) = CoroutineScope(coroutineContext).launch {

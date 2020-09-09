@@ -44,17 +44,17 @@ class SignInViewModel(
     }
 
 
-    suspend fun createNewUser(user: UserRequest) = CoroutineScope(coroutineContext).async {
+    private suspend fun createNewUser(user: UserRequest) {
         try {
             repository.getUserService().postUser(user)
             error.value = "successes"
         } catch (e: Exception) {
             error.value = e.message
         }
-    }.await()
+    }
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
 
-    fun checkPassword(p1: String, p2: String): Boolean = p1 == p2
+    private fun checkPassword(p1: String, p2: String): Boolean = p1 == p2
 }

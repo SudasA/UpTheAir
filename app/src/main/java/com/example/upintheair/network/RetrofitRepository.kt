@@ -15,7 +15,6 @@ open class RetrofitRepository() {
         if (!::userService.isInitialized) {
             val retrofit = Retrofit.Builder()
                 .baseUrl(BuildConfig.BASE_URL)
-//                .baseUrl("https://us-central1-up-in-the-air-effe3.cloudfunctions.net/app")
                 .client(getClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

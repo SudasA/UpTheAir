@@ -1,7 +1,7 @@
 package com.example.upintheair.fragment_addwish
 
 import android.content.Context
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.upintheair.FirestoreDatabase
@@ -10,55 +10,49 @@ import com.example.upintheair.isOnline
 import com.example.upintheair.room.WishesDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class AddWishViewModel(
     private val localRepository: WishesDatabase,
     private val removeRepository: FirestoreDatabase,
-    private val context: Context
+    val context: Context
 ) : ViewModel(), CoroutineScope {
 
     override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main
+        get() = Dispatchers.IO
 
-    val loading = MutableLiveData<Boolean>(false)
-    val result = MutableLiveData<String>()
-    private var isOnline = isOnline(context)
+    private val _loading = MutableLiveData<Boolean>(false)
+    val loading: LiveData<Boolean>
+        get() = _loading
+
+    private val _result = MutableLiveData<String>()
+    val result: LiveData<String>
+        get() = _result
 
     fun sendWish(name: String, description: String) {
         val wish = Wish(null, name, description)
         CoroutineScope(coroutineContext).launch {
-            loading.postValue(true)
+            _loading.postValue(true)
             if (checkWish(wish)) {
                 addWishInLocalRepository(wish)
-
-                if (isOnline) {
-                    var newWish = localRepository.getLastWish()
-                    addWishInRemoveRepository(newWish)
+                if (isOnline(context)) {
+                    addWishInRemoveRepository(getLastWishFromLocalRepository())
                 }
 
-                result.postValue("successes")
+                _result.postValue("successes")
             } else {
-                result.postValue("error_with_name_wish")
+                _result.postValue("error_with_name_wish")
             }
-            loading.postValue(false)
+            _loading.postValue(false)
         }
     }
 
-    fun checkWish(wish: Wish): Boolean {
-        if (wish.name != null && wish.name != "") return true
-        return false
-    }
+    private fun checkWish(wish: Wish): Boolean = wish.name != ""
 
-    suspend fun addWishInLocalRepository(wish: Wish) {
-        CoroutineScope(coroutineContext).async {
-            localRepository.createWish(wish)
-        }.await()
-    }
+    private suspend fun addWishInLocalRepository(wish: Wish) = localRepository.createWish(wish)
 
-    fun addWishInRemoveRepository(wish: Wish) = CoroutineScope(coroutineContext).launch {
-        removeRepository.createWish(wish)
-    }
+    private suspend fun getLastWishFromLocalRepository(): Wish = localRepository.getLastWish()
+
+    private fun addWishInRemoveRepository(wish: Wish) = removeRepository.createWish(wish)
 }

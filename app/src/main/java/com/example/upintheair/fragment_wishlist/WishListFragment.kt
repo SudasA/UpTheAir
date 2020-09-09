@@ -52,7 +52,7 @@ class WishListFragment : Fragment() {
         button_add_wish.setOnClickListener(clickButtonAddWish)
 
         mViewModel.getWishList()
-        mViewModel.wishListData.observe(viewLifecycleOwner, observe)
+        mViewModel.wishList.observe(viewLifecycleOwner, observe)
     }
 
     val OnItemClick = object : WishListAdapter.OnItemClick {
@@ -71,6 +71,7 @@ class WishListFragment : Fragment() {
                     R.id.fragment_container,
                     AddWishFragment()
                 )
+//                .addToBackStack("wishes")
                 .commit()
         }
     }

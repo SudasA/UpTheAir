@@ -43,6 +43,8 @@ class SignInActivity : AppCompatActivity() {
             "successes" -> {
                 openStartActivity()
             }
+            "error_user_exists" -> text_error.text =
+                resources.getText(R.string.error_user_exists)
             "error_with_size_of_password" -> text_error.text =
                 resources.getText(R.string.error_with_size_of_password)
             "error_with_repeat_password" -> text_error.text =

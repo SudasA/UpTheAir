@@ -26,7 +26,9 @@
         android:hint="@string/edit_text_name_wish"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_enter_wish" />
+        app:layout_constraintTop_toBottomOf="@+id/text_enter_wish"
+        android:importantForAutofill="no"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/edit_text_description_wish"
@@ -36,7 +38,9 @@
         android:hint="@string/edit_text_description_wish"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_name_wish" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_name_wish"
+        android:importantForAutofill="no"
+        android:inputType="text" />
 
     <Button
         android:id="@+id/button_add_wish"

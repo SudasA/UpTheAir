@@ -37,6 +37,8 @@
         android:layout_marginTop="16sp"
         android:digits="@string/symbols_for_edit_text_login"
         android:hint="@string/edit_text_login"
+        android:importantForAutofill="no"
+        android:inputType="text"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@+id/text_sign_in" />
 
@@ -46,6 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="@string/edit_text_username"
+        android:importantForAutofill="no"
+        android:inputType="text"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_login" />
 
@@ -55,6 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16sp"
         android:hint="@string/edit_text_password"
+        android:importantForAutofill="no"
         android:inputType="textPassword"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_username" />
@@ -65,6 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16sp"
         android:hint="@string/edit_text_repeat_password"
+        android:importantForAutofill="no"
         android:inputType="textPassword"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_password" />

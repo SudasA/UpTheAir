@@ -9,6 +9,7 @@ import com.example.upintheair.network.RetrofitRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import kotlin.coroutines.CoroutineContext
 
 class SignInViewModel(
@@ -54,7 +55,13 @@ class SignInViewModel(
         try {
             repository.getUserService().postUser(user)
             _error.value = "successes"
-        } catch (e: Exception) {
+        } catch (e: HttpException) {
+            if (e.code() == 500)
+                _error.value = "error_user_exists"
+            else
+                _error.value = e.message()
+        }
+        catch (e: Exception) {
             _error.value = e.message
         }
     }

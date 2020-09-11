@@ -36,8 +36,10 @@
         android:layout_marginTop="16sp"
         android:digits="@string/symbols_for_edit_text_login"
         android:hint="@string/edit_text_login"
+        android:importantForAutofill="no"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/text_log_in" />
+        app:layout_constraintTop_toBottomOf="@+id/text_log_in"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/edit_text_password"
@@ -47,7 +49,8 @@
         android:hint="@string/edit_text_password"
         android:inputType="textPassword"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_login" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_login"
+        android:importantForAutofill="no" />
 
     <ProgressBar
         android:id="@+id/progress_bar"

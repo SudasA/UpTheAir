@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.activity_global.*
 class GlobalActivity : AppCompatActivity() {
 
     private val wishList: Fragment = WishListFragment()
-    private val addWish: Fragment = AddWishFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,21 +25,5 @@ class GlobalActivity : AppCompatActivity() {
             )
             .commit()
 
-    }
-
-    fun openWishListFragment() {
-        supportFragmentManager
-            .popBackStack()
-    }
-
-    fun openAddWishFragment() {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(
-                R.id.fragment_container,
-                addWish
-            )
-            .addToBackStack("addWish")
-            .commit()
     }
 }

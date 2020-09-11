@@ -29,8 +29,6 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity_signin.SignInActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity_wish.WishActivity"
-            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

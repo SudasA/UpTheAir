@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.upintheair.R
-import com.example.upintheair.fragment_wishlist.WishListFragment
 import kotlinx.android.synthetic.main.fragment_addwish.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -60,12 +59,12 @@ class AddWishFragment : Fragment() {
         }
     }
 
-    fun toastMessage(message: String) {
+    private fun toastMessage(message: String) {
         if (activity != null)
             Toast.makeText(activity!!, message, Toast.LENGTH_SHORT).show()
     }
 
-    val clickOnButtonAddWish = object : View.OnClickListener {
+    private val clickOnButtonAddWish = object : View.OnClickListener {
         override fun onClick(v: View?) {
             mViewModel.sendWish(
                 edit_text_name_wish.text.toString(),
@@ -74,17 +73,10 @@ class AddWishFragment : Fragment() {
         }
     }
 
-    fun openWishListFragment() {
+    private fun openWishListFragment() {
         if (activity != null) {
             activity!!.supportFragmentManager
                 .popBackStack()
-//                .beginTransaction()
-//                .replace(
-//                    R.id.fragment_container,
-//                    WishListFragment()
-//                )
-//                .addToBackStack("wishes")
-//                .commit()
         }
     }
 }

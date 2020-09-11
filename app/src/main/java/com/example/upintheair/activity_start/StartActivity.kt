@@ -25,7 +25,10 @@ class StartActivity : AppCompatActivity() {
 
     private fun routeToAppropriatePage(user: Boolean) {
         when (user) {
-            true -> startActivity(Intent(this, GlobalActivity::class.java))
+            true -> {
+                startActivity(Intent(this, GlobalActivity::class.java))
+                finish()
+            }
             false -> {
                 if (isOnline(this))
                     startActivity(Intent(this, LogInActivity::class.java))

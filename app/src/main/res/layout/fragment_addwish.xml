@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginStart="64sp"
+    android:layout_marginTop="64sp"
     android:layout_marginEnd="64sp">
 
     <TextView
@@ -24,11 +25,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16sp"
         android:hint="@string/edit_text_name_wish"
+        android:importantForAutofill="no"
+        android:inputType="text"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_enter_wish"
-        android:importantForAutofill="no"
-        android:inputType="text" />
+        app:layout_constraintTop_toBottomOf="@+id/text_enter_wish" />
 
     <EditText
         android:id="@+id/edit_text_description_wish"
@@ -36,11 +37,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="@string/edit_text_description_wish"
+        android:importantForAutofill="no"
+        android:inputType="text"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_name_wish"
-        android:importantForAutofill="no"
-        android:inputType="text" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_name_wish" />
 
     <Button
         android:id="@+id/button_add_wish"

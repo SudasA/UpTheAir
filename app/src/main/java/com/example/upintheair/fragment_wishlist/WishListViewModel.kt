@@ -8,15 +8,13 @@ import com.example.upintheair.room.WishesDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 @Suppress("UNCHECKED_CAST")
 class WishListViewModel(
     private val repository: WishesDatabase
-) : ViewModel(), CoroutineScope {
+) : ViewModel() {
 
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.IO
+    private val coroutineContext = Dispatchers.IO
 
     private val _wishList = MutableLiveData<MutableList<Wish>>()
     val wishList: LiveData<MutableList<Wish>>
@@ -26,9 +24,13 @@ class WishListViewModel(
     val emptyWishList: LiveData<Boolean>
         get() = _emptyWishList
 
-    fun getWishList() = launch {
-        _emptyWishList.postValue(true)
-        getWishListFromDatabase()
+    fun getWishList() {
+        if (_wishList.value != null)
+            _wishList.value!!.clear()
+        CoroutineScope(coroutineContext).launch {
+            _emptyWishList.postValue(true)
+            getWishListFromDatabase()
+        }
     }
 
     private fun getWishListFromDatabase() {

@@ -21,7 +21,7 @@ class WishListFragment : Fragment() {
     val mViewModel: WishListViewModel by viewModel()
     lateinit var wishListAdapter: WishListAdapter
 
-    private val observeWishList = Observer<List<Wish>> { list ->
+    private val observeWishList = Observer<MutableList<Wish>> { list ->
         wishListAdapter.list.addAll(list)
         wishListAdapter.notifyDataSetChanged()
     }
@@ -83,7 +83,7 @@ class WishListFragment : Fragment() {
                     R.id.fragment_container,
                     AddWishFragment()
                 )
-//                .addToBackStack("wishes")
+                .addToBackStack("addWish")
                 .commit()
         }
     }

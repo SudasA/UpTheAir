@@ -77,13 +77,14 @@ class AddWishFragment : Fragment() {
     fun openWishListFragment() {
         if (activity != null) {
             activity!!.supportFragmentManager
-                .beginTransaction()
-                .replace(
-                    R.id.fragment_container,
-                    WishListFragment()
-                )
-                .addToBackStack("wishes")
-                .commit()
+                .popBackStack()
+//                .beginTransaction()
+//                .replace(
+//                    R.id.fragment_container,
+//                    WishListFragment()
+//                )
+//                .addToBackStack("wishes")
+//                .commit()
         }
     }
 }

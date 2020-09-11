@@ -20,7 +20,7 @@ class StartActivity : AppCompatActivity() {
         vm.checkUser()
 
         routeToAppropriatePage(vm.user.value!!)
-        finish()
+//        finish()
     }
 
     private fun routeToAppropriatePage(user: Boolean) {

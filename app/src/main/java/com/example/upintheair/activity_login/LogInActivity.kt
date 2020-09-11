@@ -2,7 +2,6 @@ package com.example.upintheair.activity_login
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.InputFilter
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
@@ -24,8 +23,6 @@ class LogInActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         edit_text_login.filters += loginFilter()
-//        edit_text_login.filters += InputFilter.AllCaps()
-//        edit_text_login.filters += InputFilter.
 
         vm.loading.observe(this, observerLoading)
         vm.error.observe(this, observerError)

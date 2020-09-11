@@ -21,9 +21,20 @@ class WishListFragment : Fragment() {
     val mViewModel: WishListViewModel by viewModel()
     lateinit var wishListAdapter: WishListAdapter
 
-    private val observe = Observer<List<Wish>> { list ->
+    private val observeWishList = Observer<List<Wish>> { list ->
         wishListAdapter.list.addAll(list)
         wishListAdapter.notifyDataSetChanged()
+    }
+
+    private val observeEmptyWishList = Observer<Boolean> {
+        when (it) {
+            true -> {
+                text_empty_wish_list.visibility = View.VISIBLE
+            }
+            false -> {
+                text_empty_wish_list.visibility = View.GONE
+            }
+        }
     }
 
     val clickButtonAddWish = object : View.OnClickListener {
@@ -52,7 +63,8 @@ class WishListFragment : Fragment() {
         button_add_wish.setOnClickListener(clickButtonAddWish)
 
         mViewModel.getWishList()
-        mViewModel.wishList.observe(viewLifecycleOwner, observe)
+        mViewModel.wishList.observe(viewLifecycleOwner, observeWishList)
+        mViewModel.emptyWishList.observe(viewLifecycleOwner, observeEmptyWishList)
     }
 
     val OnItemClick = object : WishListAdapter.OnItemClick {

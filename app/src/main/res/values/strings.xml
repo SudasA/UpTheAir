@@ -23,4 +23,5 @@
     <string name="error_wrong_authorization">Вы ввели неправильный логин или пароль</string>
     <string name="error_dont_have_internet_connection">Необходимо подключение интернет</string>
     <string name="error_user_exists">Пользователь с таким логином уже существует</string>
+    <string name="text_empty_wish_list">Пока нет желаний</string>
 </resources>

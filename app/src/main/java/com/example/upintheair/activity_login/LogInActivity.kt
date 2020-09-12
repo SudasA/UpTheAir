@@ -72,20 +72,16 @@ class LogInActivity : AppCompatActivity() {
         }
     }
 
-    private val clickOnButtonLogIn = object : View.OnClickListener {
-        override fun onClick(v: View?) {
-
-            vm.authorization(edit_text_login.text.toString(), edit_text_password.text.toString())
-
-        }
+    private val clickOnButtonLogIn = View.OnClickListener {
+        vm.authorization(edit_text_login.text.toString(), edit_text_password.text.toString())
     }
 
-    fun openStartActivity() {
+    private fun openStartActivity() {
         val intent = Intent(this, StartActivity::class.java)
         startActivity(intent)
     }
 
-    fun openSignInActivity() {
+    private fun openSignInActivity() {
         val intent = Intent(this, SignInActivity::class.java)
         startActivity(intent)
     }

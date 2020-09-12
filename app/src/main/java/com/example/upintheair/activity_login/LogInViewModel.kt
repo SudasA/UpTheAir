@@ -47,8 +47,8 @@ class LogInViewModel(
                 } else
                     _error.postValue("error_wrong_authorization")
             }
-            _loading.postValue(false)
         }
+        _loading.postValue(false)
     }
 
     private fun checkLoginAndPassword(login: String?, password: String?): Boolean {

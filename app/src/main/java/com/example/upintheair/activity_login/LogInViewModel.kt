@@ -77,15 +77,14 @@ class LogInViewModel(
             true
     }
 
-    private suspend fun getUser(login: String) {
+    private suspend fun getUser(login: String) = CoroutineScope(coroutineContext).async{
         try {
-//            val tempUser = removeRepository.getUserService().getUser(login)
             _user.postValue(removeRepository.getUserService().getUser(login))
         } catch (e: Exception) {
             Log.e("ERROR", "${e.message}")
             _error.postValue("error_wrong_authorization")
         }
-    }
+    }.await()
 
     private fun saveUserData() {
         localRepository.userLogin = _user.value!!.id

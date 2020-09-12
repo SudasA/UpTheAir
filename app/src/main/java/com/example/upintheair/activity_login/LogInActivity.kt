@@ -56,6 +56,7 @@ class LogInActivity : AppCompatActivity() {
         when (it) {
             "success" -> {
                 openStartActivity()
+                finish()
             }
             "error_with_all_edit_text" -> text_error.text =
                 resources.getString(R.string.error_with_all_edit_text)

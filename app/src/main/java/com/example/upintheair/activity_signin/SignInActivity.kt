@@ -42,6 +42,7 @@ class SignInActivity : AppCompatActivity() {
         when (it) {
             "successes" -> {
                 openStartActivity()
+                finish()
             }
             "error_user_exists" -> text_error.text =
                 resources.getText(R.string.error_user_exists)

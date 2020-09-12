@@ -10,7 +10,9 @@ import com.example.upintheair.md5
 import com.example.upintheair.network.RetrofitRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import okhttp3.internal.wait
 import kotlin.coroutines.CoroutineContext
 
 class LogInViewModel(
@@ -40,15 +42,24 @@ class LogInViewModel(
 
         if (checkLoginAndPassword(login, password)) {
             getUser(login!!)
-            if (_user.value != null) {
-                if (password!!.md5() == _user.value!!.password) {
-                    saveUserData()
-                    _error.postValue("success")
-                } else
-                    _error.postValue("error_wrong_authorization")
+            if (checkUser(password!!))
+            {
+                saveUserData()
+                _error.postValue("success")
             }
+
         }
         _loading.postValue(false)
+    }
+
+    private fun checkUser(password: String) : Boolean {
+        if (_user.value != null) {
+            if (password!!.md5() == _user.value!!.password)
+                return true
+            else
+                _error.postValue("error_wrong_authorization")
+        }
+        return false
     }
 
     private fun checkLoginAndPassword(login: String?, password: String?): Boolean {
@@ -68,10 +79,10 @@ class LogInViewModel(
 
     private suspend fun getUser(login: String) {
         try {
-            var tempUser = removeRepository.getUserService().getUser(login)
-            _user.postValue(tempUser)
+//            val tempUser = removeRepository.getUserService().getUser(login)
+            _user.postValue(removeRepository.getUserService().getUser(login))
         } catch (e: Exception) {
-            Log.e("ERROR", e.message)
+            Log.e("ERROR", "${e.message}")
             _error.postValue("error_wrong_authorization")
         }
     }

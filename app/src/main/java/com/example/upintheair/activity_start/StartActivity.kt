@@ -30,8 +30,10 @@ class StartActivity : AppCompatActivity() {
                 finish()
             }
             false -> {
-                if (isOnline(this))
+                if (isOnline(this)) {
                     startActivity(Intent(this, LogInActivity::class.java))
+                    finish()
+                }
                 else {
                     Toast.makeText(this, resources.getText(R.string.error_dont_have_internet_connection), Toast.LENGTH_LONG).show()
                 }

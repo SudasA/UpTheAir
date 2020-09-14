@@ -9,7 +9,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Suppress("UNCHECKED_CAST")
 class WishListViewModel(
     private val repository: WishesDatabase
 ) : ViewModel() {
@@ -20,7 +19,7 @@ class WishListViewModel(
     val wishList: LiveData<MutableList<Wish>>
         get() = _wishList
 
-    private val _emptyWishList = MutableLiveData<Boolean>(true)
+    private val _emptyWishList = MutableLiveData<Boolean>(false)
     val emptyWishList: LiveData<Boolean>
         get() = _emptyWishList
 
@@ -28,7 +27,7 @@ class WishListViewModel(
         if (_wishList.value != null)
             _wishList.value!!.clear()
         CoroutineScope(coroutineContext).launch {
-            _emptyWishList.postValue(true)
+            _emptyWishList.postValue(false)
             getWishListFromDatabase()
         }
     }
@@ -38,7 +37,7 @@ class WishListViewModel(
         if (temp.isNullOrEmpty() || temp.size == 0)
             _emptyWishList.postValue(true)
         else {
-            _emptyWishList.postValue(false)
+//            _emptyWishList.postValue(false)
             _wishList.postValue(temp)
         }
     }

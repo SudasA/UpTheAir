@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 open class RetrofitRepository() {
 
     private lateinit var userService: UserService
-
+//Service
     fun getUserService(): UserService {
         if (!::userService.isInitialized) {
             val retrofit = Retrofit.Builder()
